@@ -1,0 +1,108 @@
+
+    <style>
+    .uploader-wrap {
+      display:none;
+    }
+
+    #progress-wrp-uploadit {
+      position: relative;
+      padding-bottom: 20px;
+      width: 390px;
+      height: 40px;
+      cursor: pointer;
+      /*border: 2px solid #099b4d;*/
+      text-align: center;
+      line-height: 16px;
+      margin-left: 0px;
+      border-radius: 5px;
+      margin-top: 15px;
+      display: none;                                        
+
+    }
+    #progress-wrp-uploadit .progress-bar-uploadit{
+    height: 20px;
+    border-radius: 3px;
+    background-color: ;
+    width: 0;
+    box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.11);
+    }
+    #progress-wrp-uploadit .status{
+    top:3px;
+    left:50%;
+    position:absolute;
+    display:inline-block;
+    color: #000000;
+    }     
+    .uploader-section {
+      cursor: pointer;
+      text-align: center;
+      line-height: 42px;
+      border-radius: 5px;
+    }
+    .uploader-section img{
+      float: left;
+      padding-top: 10px;
+      padding-left: 10px;
+      width: 36px;
+      height: 31px;      
+    }
+    #label-main{
+    margin-top: 15px;
+    }
+    .notalluploaded {
+      opacity:0.1;
+      pointer-events: none;
+    }    
+    </style><script>
+  window.onload = function(){ 
+  if (typeof jQuery == 'undefined') {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js';
+      document.getElementsByTagName('head')[0].appendChild(script);
+  }$('.uploader-section').change(function () {
+        $('#progress-wrp-uploadit ').css('display','block');      
+        var shop = 'snow-magazine-shop.myshopify.com';
+        var that = $(this).find('.file-selector');
+        var file_data = that.prop('files')[0];   
+        var form_data = new FormData();                  
+        form_data.append('file', file_data);
+        $.ajax({
+          url: 'https://ssevenn.com/uploadit/upload.php?shop='+shop, // point to server-side PHP script 
+          dataType: 'text',  // what to expect back from the PHP script, if anything
+          cache: false,
+          contentType: false,
+          processData: false,
+          data: form_data,                         
+          type: 'post',
+          xhr: function(){
+          //upload Progress
+            var xhr = $.ajaxSettings.xhr();
+            if (xhr.upload) {
+              xhr.upload.addEventListener('progress', function(event) {
+                var percent = 0;
+                var position = event.loaded || event.position;
+                var total = event.total;
+                if (event.lengthComputable) {
+                  percent = Math.ceil(position / total * 100);
+                }
+                //update progressbar
+                $('.progress-bar-uplodit').css('width', + percent +'%');
+                $('.status').text(percent +'%');
+                }, true);
+              }
+              return xhr;
+              },
+              mimeType:'multipart/form-data'
+              }).done(function(res){
+                that.closest('.uploader-wrap').find('.uploadpathfield').val(res);               
+                that.closest('.uploader-wrap').find('.uploadpathfield').removeClass('filenotuploaded');        
+                  
+                if($('.filenotuploaded').length){
+                  $('form[action="/cart/add"] button').prop('disabled', false);
+                }
+                }).fail(function(data){
+                alert('Some Thing went wrong');
+              });
+                });};
+                </script>

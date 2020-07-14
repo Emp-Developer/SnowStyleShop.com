@@ -1,0 +1,145 @@
+/* Sticky Header */
+.fixed-header {
+    position: fixed !important;
+    top: -6px !important;
+    width: 100%;
+    margin-top: 5px;
+    -webkit-box-shadow: 0 10px 6px -6px rgb(70, 67, 67);
+    -moz-box-shadow: 0 10px 6px -6px rgb(70, 67, 67);
+         box-shadow: 0 10px 6px -6px rgb(70, 67, 67);
+}
+
+/* Header Background Coloer */
+.header {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+span:hover {
+    color: #0BE808 !important;
+}
+
+.custom-text:hover {
+    color: #0BE808 !important;
+}
+
+
+/* Justify images of the Collection page */
+.collection-page .product-grid-item .grid-item {
+    display: flex;
+}
+
+.form-add-cart {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.products-grid .grid-item .product-image > a, .product-list .grid-item .product-image > a {
+    height: 400px;
+}
+
+.grid-item .grid-image img {
+    width: 100%;
+    height: 100%;
+}
+
+.clear_fix {
+    display: none;
+}
+
+/* .owl-item {
+    width: 30% !important;
+} */
+
+/* Justify image of the New Arrival on Home page */
+/* .grid-item {
+    display: flex;
+}
+
+.grid-item .product-image {
+    height: 300px;
+}
+.product-item a.grid-image, .product-item a.product-grid-image {
+    width: 100%;
+    height: 100%;
+} */
+
+/* Justify images of collection page */
+/* .list-category .collection-item img {
+    height: 35vh;
+} */
+
+/* Justify image of related products */
+/* .product-image img {
+    height: 100%;
+} */
+
+/* Hide the toolbar of the collection page */
+.toolbar-mode {
+    display: none;
+}
+
+/* Footer font-style */
+.footer-container .footer-center .footer-link ul li a {
+    font-family: "Playfair Display",serif;
+    font-weight: bold;
+}
+
+.footer-customhtml {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.footer-container.footer_layout_1 .footer-center .footer-copyright {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+}
+
+/* Justify product images of vintage product pgae */
+/* .__pf .pf-800ec675 {
+    display: flex;
+    height: 400px;
+} */
+
+/* Justify product images of flower power collection page */
+/* .SfOJX .sc-qZusK {
+    height: 400px !important;
+}
+
+.eAxLDs img {
+    height: 100% !important;
+} */
+/* Responsive web Design
+@media (min-width: 576px){
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px){
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px){
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px){
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media (min-width: 1450px){
+    .container {
+        max-width: 1440px;
+    }
+} */
+
+
+
+

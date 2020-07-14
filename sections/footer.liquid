@@ -1,0 +1,547 @@
+
+<footer class="footer-container {{section.settings.footer_layouts}} {% if section.settings.show_top_border %} border-top {% endif %}" style="margin: {{ section.settings.layout_footer }};">
+  <div class="footer-center">
+    <div class="{% if section.settings.enable_block_home_icon_full  %} full-width{% else %} container{%endif %}"> 
+      <div class="row">
+        {% for block in section.blocks %}
+        {%- case block.type -%}
+        {% when 'iconsocial' %}
+        {% capture iconsocial %}
+        <div class="footer-isocal">
+          {% if  block.settings.footer_column_3_title != blank %}
+          <h3 class="module-title">{{ block.settings.footer_column_3_title }}</h3>
+          {% endif %}
+          <div class="footer-icon-share">
+            {% if block.settings.footer_column_4_icon_link_1  %}
+            <a href="{{ settings.footer_column_4_icon_link_1 }}">
+              <i class="cs-font clever-icon-facebook"></i>
+            </a>
+            {% endif %}
+            {% if block.settings.footer_column_4_icon_link_2  %}
+            <a href="{{ settings.footer_column_4_icon_link_2 }}">
+              <i class="cs-font clever-icon-instagram"></i>
+            </a>
+            {% endif %}
+            {% if block.settings.footer_column_4_icon_link_3  %}
+            <a href="{{ settings.footer_column_4_icon_link_3 }}">
+              <i class="cs-font clever-icon-twitter"></i>
+            </a>
+            {% endif %}
+            {% if block.settings.footer_column_4_icon_link_4  %}
+            <a href="{{ settings.footer_column_4_icon_link_4 }}">
+              <i class="cs-font clever-icon-pinterest"></i>
+            </a>
+            {% endif %}
+            {% if block.settings.footer_column_4_icon_link_5  %}
+            <a href="{{ settings.footer_column_4_icon_link_5 }}">
+              <i class="cs-font clever-icon-youtube-2"></i>
+            </a>
+            {% endif %}
+
+            {% if block.settings.footer_column_4_icon_link_6  %}
+            <a href="{{ settings.footer_column_4_icon_link_6 }}">
+              <i class="cs-font clever-icon-googleplus"></i>
+            </a>
+            {% endif %}
+
+            {% if block.settings.footer_column_4_icon_link_8  %}
+            <a href="{{settings.footer_column_4_icon_link_8 }}">
+              <i class="cs-font clever-icon-skype"></i>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+        {% endcapture %}
+
+        {% when 'newsletter' %}
+        {% capture newsletter %}
+        <div class="footer-newsletter">
+          <div class="newsletter">
+            {% if block.settings.home_newsletter_title != blank %}
+            <h3 class="module-title">
+              {{ block.settings.home_newsletter_title }}
+            </h3>
+            {% endif %}
+            <p class="sub-title">{{ block.settings.home_newsletter_subtitle }}</p>
+            <div class="content">
+              <form action="{{ block.settings.mailing_list_form_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank" class="input-group">
+                <div class="input-group newsletter_form_content">
+                  <input  class="input__field input-group-field" type="email" value="" placeholder="{{ 'footer.footer_newsletter_content' | t }}" name="EMAIL" aria-label="Email Address">
+                  <span class="input-group-btn">
+                    <input type="submit" class="btn" value="subscribe" name="subscribe">
+                  </span>
+                </div>
+              </form>
+              <div class="subtitle2_newsletter">{{ block.settings.home_newsletter_subtitle_2 }}</div>
+            </div>
+          </div>
+        </div>
+        {% endcapture %}
+        {% when 'menu' %}
+        {% capture menu %}
+        <div class="footer-link">
+          <ul class="content">
+            {%- assign footercol1 = block.settings.footercol1 -%}
+            {{footercol1}}
+            {% for link in linklists[footercol1].links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endcapture %}
+        {% when 'copyright' %}
+        {% capture copyright %}
+        <div class="footer-copyright">
+          <address>
+            {{ block.settings.footer_copyright }}
+          </address>
+        </div>
+        {% endcapture %}
+        {% when 'custom_html' %}
+        {% capture custom_html %}
+        <div class="footer-customhtml">
+          {{ block.settings.custom_html }}
+        </div>
+        {% endcapture %}
+        {% when 'logo' %}
+        {% capture logo %}
+        <div class="footer-logo" style="margin:{{block.settings.margin_logo }}">
+          {%- assign img_url = block.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          <img src="{{ block.settings.logo | img_url: '2048x'  }}" alt="{{ image.alt | escape }}">
+        </div>
+        {% endcapture %}
+        {%- endcase -%}
+        {% endfor %}
+        {% if section.settings.footer_layouts == 'footer_layout_1' %}
+        <div class="col-md-4 col-12 ">
+          {% for block in section.blocks %}
+          {%- case block.type -%}
+          {% when 'logo' %}
+          {{logo}}
+          {% when 'custom_html' %}
+          {{custom_html}}
+          {%- endcase -%}
+          {% endfor %}
+        </div>
+        <div class="col-md-4 col-12 row">
+          {% for block in section.blocks %}
+          {%- case block.type -%}
+          {% when 'menu' %}
+          <div class="col-md-6">
+            <div class="footer-link">
+              {% if block.settings.footer_heading  !=blank %}
+              <h3 class="module-title">{{block.settings.footer_heading }}</h3>
+              {% endif %}
+              <ul class="content">
+                {%- assign footercol1 = block.settings.footercol1 -%}
+                {% for link in linklists[footercol1].links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          {%- endcase -%}
+          {% endfor %}
+        </div>
+        <div class="col-md-4 col-12 ">
+          {% for block in section.blocks %}
+          {%- case block.type -%}
+          {% when 'newsletter' %}
+          {{newsletter}}
+
+          {%- endcase -%}
+          {% endfor %}
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-12 footer-copyrights text-center">
+          {% for block in section.blocks %}
+          {%- case block.type -%}
+          {% when 'copyright' %}
+          <div class="footer-copyright">
+            <address>
+              {{ block.settings.footer_copyright }}
+            </address>
+          </div>
+          {%- endcase -%}
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if section.settings.footer_layouts == 'footer_layout_2' %}
+        <div class="col-md-6 col-12">
+          {% for block in section.blocks %}
+          {%- case block.type -%}
+          {% when 'copyright' %}
+          <div class="footer-copyright">
+            <address>
+              {{ block.settings.footer_copyright }}
+            </address>
+          </div>
+          {%- endcase -%}
+          {% endfor %}
+        </div>
+        <div class="col-md-6 col-12 text-right">
+          {% for block in section.blocks %}
+          {%- case block.type -%}
+          {% when 'menu' %}
+
+          <div class="footer-link footer_layout_2">
+            {% if block.settings.footer_heading  !=blank %}
+            <h3 class="module-title">{{block.settings.footer_heading }}</h3>
+            {% endif %}
+            <ul class="content">
+              {%- assign footercol1 = block.settings.footercol1 -%}
+              {% for link in linklists[footercol1].links %}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% when 'iconsocial' %}
+          {{iconsocial}}
+          {%- endcase -%}
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if section.settings.footer_layouts == 'footer_layout_3' %}
+        <div class="col-md-4 col-12 ">
+          {% for block in section.blocks %}
+          {%- case block.type -%}
+          {% when 'logo' %}
+          {{logo}}
+          {% when 'custom_html' %}
+          {{custom_html}}
+          {%- endcase -%}
+          {% endfor %}
+        </div>
+        <div class="col-md-4 col-12 row">
+          {% for block in section.blocks %}
+          {%- case block.type -%}
+          {% when 'menu' %}
+          <div class="col-md-6">
+            <div class="footer-link">
+              {% if block.settings.footer_heading  !=blank %}
+              <h3 class="module-title">{{block.settings.footer_heading }}</h3>
+              {% endif %}
+              <ul class="content">
+                {%- assign footercol1 = block.settings.footercol1 -%}
+                {% for link in linklists[footercol1].links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          {%- endcase -%}
+          {% endfor %}
+        </div>
+        <div class="col-md-4 col-12 footer-instagram">
+          {% for block in section.blocks %}
+          {%- case block.type -%}
+          {% when 'instagram' %}
+
+          {% if block.settings.instagram_title  !=blank %}
+          <h3 class="module-title">{{block.settings.instagram_title }}</h3>
+          {% endif %}
+          {{ 'instafeed.min.js' | asset_url | script_tag }}
+          <div id="instafeed" class="instafeeds  content " ></div>  
+          <script>
+            var feed = new Instafeed({
+              get: "user",    
+              {% if block.settings.user-id != blank %} userId: {{ block.settings.user-id }}, {% endif %}
+              {% if block.settings.accessToken != blank %}accessToken: '{{ block.settings.accessToken }}', {% endif %}
+              clientId: '{{ block.settings.client-id }}',
+              limit: '{{ block.settings.limit }}',
+              resolution: '{{ block.settings.resolution_instagram }}',
+              after: function() {
+              jQuery('#instafeed > a').attr( "target", "_blank" );
+            }
+                                     });
+            feed.run();
+
+          </script> 
+          {%- endcase -%}
+          {% endfor %}
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-12 footer-copyrights text-center">
+          {% for block in section.blocks %}
+          {%- case block.type -%}
+          {% when 'copyright' %}
+          <div class="footer-copyright">
+            <address>
+              {{ block.settings.footer_copyright }}
+            </address>
+          </div>
+          {%- endcase -%}
+          {% endfor %}
+        </div>
+
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+{% if section.settings.show_button_back_to_top %}
+<div id="back-top" style="display: none;"><a class="" href="#top"><i class="cs-font clever-icon-up"></i></a></div>
+{% endif %}
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+ 
+    {
+      "type": "text",
+      "id": "layout_footer",
+      "label": "Margin",
+      "default": "0px 0px 0px 0px"
+    },
+{
+      "type": "checkbox",
+      "id": "enable_block_home_icon_full",
+      "label": "Enable Full Width"
+    },
+{
+                 "type": "select",
+                 "id": "footer_layouts",
+                 "label": "Type",
+                 "options": [
+                   {
+                     "value": "footer_layout_1",
+                     "label": "Type #1"
+                   },
+                   {
+                     "value": "footer_layout_2",
+                     "label": "Type #2"
+                   },
+                   {
+                     "value": "footer_layout_3",
+                     "label": "Type #3"
+                   }
+                 ]
+               },
+{
+"type": "checkbox",
+"id": "show_top_border",
+"label": "Show  Border Top",
+"default": true
+},
+{
+"type": "checkbox",
+"id": "show_button_back_to_top",
+"label": "Show 'Back to top' button",
+"default": true
+}
+  ],
+  "max_blocks": 9,
+  "blocks": [
+   {
+      "type": "logo",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "text",
+          "id": "margin_logo",
+          "label": "Margin",
+          "default": "0px 0px 0px 0px"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "image"
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        
+        {
+          "type": "text",
+          "id": "footer_heading",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "link_list",
+          "id": "footercol1",
+          "label": "Link List"
+        }
+
+      ]
+    },
+    {
+      "type": "instagram",
+      "name": "Instagram",
+      "settings": [
+       
+        
+        {
+          "type": "select",
+          "id": "resolution_instagram",
+          "label": "Resolution ",
+          "options": [
+            {
+              "value": "thumbnail",
+              "label": "Thumbnail(Default) - 150x150 "
+            },
+            {
+              "value": "low_resolution",
+              "label": "Low Resolution - 306x306"
+            },
+            {
+              "value": "standard_resolution",
+              "label": "Standard Resolution - 612x612"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "instagram_title",
+          "label": "Heading",
+          "default": " Instagram"
+        },
+        {
+          "type": "text",
+          "id": "client-id",
+          "label": "Client Id",
+          "default": "3a81a9fa2a064751b8c31385b91cc25c",
+           "info": "[Get a Instagram Client_ID key](http:\/\/darkwhispering.com\/how-to\/get-a-instagram-client_id-key)"
+        },
+        {
+          "type": "text",
+          "id": "user-id",
+          "label": "User Id",
+          "default": "11707579",
+          "info": "[Get Instagram User Id](http:\/\/www.ershad7.com\/InstagramUserID)"
+        },
+        {
+          "type": "text",
+          "id": "accessToken",
+          "label": "Access Token",
+          "default": "53102326.3a81a9f.ab5bb63e2ce94c6994b48e507bf66db4",
+          "info": "[Instagram access token generator](https:\/\/elfsight.com\/service\/generate-instagram-access-token)"
+        },
+      {
+        "type": "paragraph",
+        "content": "[Instagram access token](https:\/\/elfsight.com\/blog\/2016\/05\/how-to-get-instagram-access-token/)"
+      },
+        {
+          "type": "text",
+          "id": "limit",
+          "label": "Number of Photos",
+          "default": "10",
+          "info": "Number of photos to show initially"
+        }
+
+      ]
+    },
+    {
+      "type": "custom_html",
+      "name": "Custom Html",
+      "settings": [
+       
+        {
+          "type": "html",
+          "id": "custom_html",
+          "label": "Custom Html",
+          "default": "Custom Html"
+        }
+
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "settings": [
+        
+        {
+          "type": "text",
+          "id": "home_newsletter_title",
+          "label": "Heading",
+          "default": "Newsletter"
+        },
+          {
+            "type": "text",
+            "id": "home_newsletter_subtitle",
+            "label": "Subheading",
+            "default": "Subscribe now to get daily updates "
+          },
+          {
+            "type": "text",
+            "id": "home_newsletter_subtitle_2",
+            "label": "Bottom Heading",
+            "default": "Don’t worry we don’t spam"
+          },
+        {
+          "type": "text",
+          "id": "mailing_list_form_action",
+          "label": "MailChimp form action URL",
+          "info": "[Where do I find my MailChimp form action URL?](http:\/\/docs.shopify.com\/support\/configuration\/store-customization\/where-do-i-get-my-mailchimp-form-action)"
+        }
+      ]
+    },
+    {
+      "type": "iconsocial",
+      "name": "Social Media",
+      "settings": [
+{
+        "type": "text",
+        "id": "footer_column_3_title",
+        "label": "Social Title"
+      },
+	{
+        "type": "checkbox",
+        "id": "footer_column_4_icon_link_1",
+        "label": "Facebook"
+      },
+{
+        "type": "checkbox",
+        "id": "footer_column_4_icon_link_2",
+        "label": "Instagram"
+      },
+{
+        "type": "checkbox",
+        "id": "footer_column_4_icon_link_3",
+        "label": "Twitter"
+      },
+{
+        "type": "checkbox",
+        "id": "footer_column_4_icon_link_4",
+        "label": "Pinterest"
+      },
+{
+        "type": "checkbox",
+        "id": "footer_column_4_icon_link_5",
+        "label": "Youtube"
+      },
+{
+        "type": "checkbox",
+        "id": "footer_column_4_icon_link_6",
+        "label": "Google+"
+      },
+{
+        "type": "checkbox",
+        "id": "footer_column_4_icon_link_8",
+        "label": "Skype"
+      }
+      ]
+    },
+    {
+      "type": "copyright",
+      "name": "Copyright",
+      "settings": [
+       
+        {
+          "type": "textarea",
+          "id": "footer_copyright",
+          "label": "Copyright",
+          "default": "Copyright"
+        }
+
+      ]
+    }
+  ]
+}
+{% endschema %}
